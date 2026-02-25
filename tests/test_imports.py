@@ -6,3 +6,4 @@ def test_analysis_import_smoke() -> None:
     assert hasattr(analysis, "AssumptionsRepository")
     assert hasattr(analysis, "SnapshotsRepository")
     assert hasattr(analysis, "compare_snapshots")
+    assert hasattr(analysis, "project_init")

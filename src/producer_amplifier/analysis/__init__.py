@@ -5,6 +5,16 @@ from .compare import compare_snapshots, summarize_diff
 from .constants import AnalysisWeights
 from .engine import analyze_project
 from .exports import export_json_report, export_memo_markdown, export_risks_csv
+from .ingest import ingest_project_inputs
+from .project_workflow import (
+    project_analyze,
+    project_compare,
+    project_export,
+    project_ingest,
+    project_init,
+    project_list_snapshots,
+    project_snapshot,
+)
 from .rules import (
     cast_concentration_alerts,
     hidden_cost_flags,
@@ -40,4 +50,12 @@ __all__ = [
     "export_json_report",
     "export_risks_csv",
     "export_memo_markdown",
+    "ingest_project_inputs",
+    "project_init",
+    "project_ingest",
+    "project_analyze",
+    "project_snapshot",
+    "project_list_snapshots",
+    "project_compare",
+    "project_export",
 ]
