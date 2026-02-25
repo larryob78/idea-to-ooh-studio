@@ -1,1 +1,3 @@
-"""Producer Amplifier analysis package."""
+"""Producer Amplifier package."""
+
+__all__ = ["analysis", "saas"]

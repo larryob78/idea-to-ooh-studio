@@ -4,12 +4,18 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "producer-amplifier"
-version = "0.2.0"
-description = "Deterministic trustable analysis prototype for film production prep"
+version = "0.6.0"
+description = "Deterministic trustable analysis prototype and SaaS platform layer for film production prep"
 requires-python = ">=3.10"
+dependencies = [
+  "fastapi>=0.110",
+  "uvicorn>=0.23",
+  "python-multipart>=0.0.9",
+]
 
 [project.scripts]
 sba = "producer_amplifier.cli:main"
+producer-amplifier-api = "producer_amplifier.saas.main:app"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
