@@ -36,3 +36,22 @@
 ## Artifacts
 - `GET /api/projects/{id}/artifacts`
 - `GET /api/artifacts/{id}?token=...`
+
+
+## Onboarding and Org Roles
+- `POST /api/onboarding/org`
+- `GET /api/org/members`
+- `PATCH /api/org/members/{user_id}/role`
+- `POST /api/org/invites`
+- `GET /api/org/invites`
+- `POST /api/onboarding/accept-invite`
+
+## Wizard and Notifications
+- `GET /api/projects/{id}/wizard`
+- `POST /api/projects/{id}/wizard/continue`
+- `GET /api/notifications`
+- `POST /api/notifications/{id}/read`
+
+## Support
+- `POST /api/projects/{id}/support-bundle`
+- `POST /api/jobs/{id}/rerun`
