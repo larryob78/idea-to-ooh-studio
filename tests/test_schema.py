@@ -1,6 +1,6 @@
 import pytest
 
-from producer_amplifier.analysis.types import BudgetLineItem, Project, ScriptScene
+from producer_amplifier.analysis.types import Assumption, BudgetLineItem, Project, ScriptScene
 
 
 def test_schema_minimum_project() -> None:
@@ -37,3 +37,9 @@ def test_budget_line_item_validation() -> None:
             rate=100,
             total=100,
         )
+
+
+def test_assumption_validation() -> None:
+    Assumption("a1", "ok", "desc", "rule", 0.5)
+    with pytest.raises(ValueError):
+        Assumption("a2", "bad", "desc", "rule", 1.3)

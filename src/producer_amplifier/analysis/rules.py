@@ -35,6 +35,7 @@ def hidden_cost_flags(project: Project, weights: AnalysisWeights | None = None) 
                         f"account:{item.account_name}",
                         f"total:{item.total}",
                     ],
+                    assumptions_used=["rule:hidden_cost_keyword_or_threshold"],
                     is_heuristic=False,
                 )
             )
@@ -57,6 +58,7 @@ def overtime_risk_indicators(project: Project, weights: AnalysisWeights | None =
             confidence=0.7,
             rationale="High concentration of cast-heavy or technically complex scenes can increase overtime risk.",
             evidence_refs=[f"heavy_scene_count:{len(heavy_scenes)}", f"total_scene_count:{len(project.scenes)}"],
+            assumptions_used=["heuristic:heavy_scene_overtime_proxy"],
             is_heuristic=True,
             limitations=["Does not account for actual stripboard timings or union break rules."],
         )
@@ -68,7 +70,7 @@ def location_clustering_opportunities(project: Project, weights: AnalysisWeights
     location_counts = Counter(scene.location_name for scene in project.scenes)
     recs: list[Recommendation] = []
 
-    for location, count in location_counts.items():
+    for location, count in sorted(location_counts.items(), key=lambda item: item[0].lower()):
         if count >= weights.location_cluster_min_repeat:
             recs.append(
                 Recommendation(
@@ -81,6 +83,7 @@ def location_clustering_opportunities(project: Project, weights: AnalysisWeights
                     confidence=0.8,
                     rollback_instruction="Revert to script-order schedule if creative continuity suffers.",
                     evidence_refs=[f"location:{location}", f"scene_count:{count}"],
+                    assumptions_used=["rule:location_repeat_threshold"],
                     is_heuristic=False,
                 )
             )
@@ -97,7 +100,7 @@ def cast_concentration_alerts(project: Project, weights: AnalysisWeights | None 
 
     total_scenes = len(project.scenes) or 1
     flags: list[RiskFlag] = []
-    for cast_member, count in appearances.items():
+    for cast_member, count in sorted(appearances.items(), key=lambda item: item[0].lower()):
         ratio = count / total_scenes
         if ratio >= weights.cast_concentration_ratio_threshold:
             flags.append(
@@ -108,6 +111,7 @@ def cast_concentration_alerts(project: Project, weights: AnalysisWeights | None 
                     confidence=0.75,
                     rationale="A single cast member appears in a high share of scenes, increasing schedule fragility.",
                     evidence_refs=[f"cast:{cast_member}", f"appearance_ratio:{ratio:.2f}"],
+                    assumptions_used=["heuristic:cast_concentration_threshold"],
                     is_heuristic=True,
                     limitations=["Does not account for actor availability windows or turnaround rules."],
                 )
@@ -131,6 +135,7 @@ def night_shoot_concentration_alerts(project: Project, weights: AnalysisWeights 
             confidence=0.8,
             rationale="High concentration of night scenes can increase fatigue and reduce schedule resilience.",
             evidence_refs=[f"night_scene_ratio:{ratio:.2f}", f"night_scene_count:{len(night_scenes)}"],
+            assumptions_used=["heuristic:night_scene_ratio_threshold"],
             is_heuristic=True,
             limitations=["Does not model company turnaround, local permit curfews, or weather variance."],
         )

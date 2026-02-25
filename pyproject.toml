@@ -4,9 +4,12 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "producer-amplifier"
-version = "0.1.0"
+version = "0.2.0"
 description = "Deterministic trustable analysis prototype for film production prep"
 requires-python = ">=3.10"
+
+[project.scripts]
+sba = "producer_amplifier.cli:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
