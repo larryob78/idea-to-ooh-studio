@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #0a0a0a;
+  --panel: #1c1c1e;
+  --accent: #ff6b00;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  background: radial-gradient(circle at top, #141414 0%, #0a0a0a 55%);
+}
+
+@layer components {
+  .glass-panel {
+    @apply rounded-glass border border-white/10 bg-panel/75 backdrop-blur-md;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-accent px-3 py-2 text-sm font-medium text-white transition-all duration-300 hover:translate-y-[-1px] hover:shadow-glow disabled:opacity-50;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-2 py-1.5 text-xs text-zinc-200 transition-all duration-300 hover:border-white/20 hover:bg-white/10;
+  }
+
+  .pill {
+    @apply inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-zinc-300 transition-all duration-300 hover:border-white/30;
+  }
+
+  .pill.active {
+    @apply border-accent bg-accent/20 text-white;
+  }
+
+  .toggle-pill {
+    @apply flex-1 rounded-lg px-3 py-1.5 text-sm text-zinc-300 transition-all duration-300;
+  }
+
+  .toggle-pill.active {
+    @apply bg-accent text-white;
+  }
+
+  .input {
+    @apply w-full rounded-xl border border-white/10 bg-black/20 px-3 py-2 text-sm text-white outline-none transition-all duration-300 placeholder:text-zinc-500 focus:border-accent;
+  }
+
+  .label {
+    @apply block text-xs uppercase tracking-wider text-zinc-400;
+  }
+}
